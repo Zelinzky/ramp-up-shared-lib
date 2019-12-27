@@ -1,6 +1,6 @@
 def createImage(String registry, String repository, String tag, Boolean markAsLatest) {
     def imageIDs = [tag :"$registry/$repository:$tag"]
-    docker.build(imageIDs[0])
+    docker.build(imageIDs.tag)
     if (markAsLatest) {
         imageIDs.latest = "$registry/$repository:latest"
         sh "docker tag $imageIDs.tag $imageIDs.latest"

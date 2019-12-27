@@ -1,10 +1,10 @@
 // This is the template to create a containerized NodeJS application
 // For it to run successfully the following parameters must be declared
 // in the project's Jenkinsfile:
-// registry =
-// repository =
-// tag =
-// credentials =
+// registry = url of the registry to be used
+// repository = name of the container repository to be used in the registry
+// tag = name of the tag to be added to the created image
+// credentials = the credentials to be used to access the registry
 
 
 def call(body) {
@@ -19,7 +19,7 @@ def call(body) {
             stage('Create Container') {
                 steps {
                     script {
-                        markAsLatest = (env.BRANCH == master)
+                        markAsLatest = (env.BRANCH_NAME == "master")
                         config.imageIDs = containers.createImage(config.registry, config.repository, config.tag, markAsLatest)
                         echo "Image Created, Full lenght tag(s):"
                         config.imageIDs.each { imageID ->
@@ -39,7 +39,8 @@ def call(body) {
         post {
             cleanup {
                 script {
-                    removeLocalImage(config.imageIDs.tag)
+                    containers.removeLocalImage(config.imageIDs.tag)
+                    sh "docker image ls --all"
                 }
             }
         }
