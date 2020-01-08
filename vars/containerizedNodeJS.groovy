@@ -4,7 +4,7 @@
 // registry = url of the registry to be used
 // repository = name of the container repository to be used in the registry
 // tag = name of the tag to be added to the created image
-// credentials = the credentials to be used to access the registry
+// registryCredentials = the credentials to be used to access the registry
 
 
 def call(body) {

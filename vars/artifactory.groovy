@@ -1,6 +1,6 @@
-def upload(String extension) {
+def upload(String extension, String target) {
     def server = Artifactory.server 'art-main'
-    server.upload(getUploadSpec("artifacts/*.${extension}", "movie-analyst/psl/${JOB_BASE_NAME}/"))
+    server.upload(getUploadSpec("artifacts/*.${extension}", target))
 }
 
 def getUploadSpec(pattern,target) {
