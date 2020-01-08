@@ -8,7 +8,7 @@ def createImage(String registry, String repository, String tag, Boolean markAsLa
     return imageIDs
 }
 
-def publish(String registry, String credential, imageIDs) {
+def publish(String registry, String credential, Map imageIDs) {
     docker.withRegistry("https://$registry", credential) {
         imageIDs.each { imageID ->
             sh "docker push $imageID.value"
