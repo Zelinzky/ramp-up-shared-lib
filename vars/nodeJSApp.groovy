@@ -26,13 +26,6 @@ def call(body) {
                     }
                 }
             }
-            stage("create tar.gz artifact"){
-                steps {
-                    script {
-                        tar.compressCurrentDirectory("${JOB_BASE_NAME}-${BUILD_NUMBER}")
-                    }
-                }
-            }
             stage('Create container image') {
                 steps {
                     script {
@@ -42,6 +35,13 @@ def call(body) {
                         config.imageIDs.each { imageID ->
                             echo "$imageID.value"
                         }
+                    }
+                }
+            }
+            stage("create tar.gz artifact"){
+                steps {
+                    script {
+                        tar.compressCurrentDirectory("${JOB_BASE_NAME}-${BUILD_NUMBER}")
                     }
                 }
             }
