@@ -7,7 +7,8 @@
 // registryCredentials = the credentials to be used to access the registry
 // artifactoryRepo = the name of the repository in the artifactory server
 // org = name of the organization responsible for the package
-// sonarCred = credentials to use with sonarqube
+// sonarProjectKey = the key of the project in the sonarqueb server
+//
 
 
 def call(body) {
@@ -19,6 +20,16 @@ def call(body) {
     pipeline {
         agent any
         stages {
+            stage("static ocde analisis") {
+                steps{
+                    script {
+                        def scannerHome = tool 'SonarScanner'
+                        withSonarQubeEnv('SonarCloud'){
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=${config.sonarProjectKey} -Dsonar.organization=${config.org} -Dsonar.sources=."
+                        }
+                    }
+                }
+            }
             stage("install app and check dependencies") {
                 steps {
                     nodejs('NodeLTS'){
