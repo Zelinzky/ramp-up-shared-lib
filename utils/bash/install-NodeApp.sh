@@ -18,7 +18,7 @@ curl -s -O "$1"
 
 for a in *.tar.gz; do
   a_dir=$(expr "$a" : '\(.*\).tar.gz')
-  tar -xvzf "$a" --one-top-level
+  tar -xvzf "$a" -C "$a_dir"
   rm "$a"
 done
 
