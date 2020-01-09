@@ -18,6 +18,7 @@ curl -s -O "$1"
 
 for a in *.tar.gz; do
   a_dir=$(expr "$a" : '\(.*\).tar.gz')
+  mkdir -p "$a_dir"
   tar -xvzf "$a" -C "$a_dir"
   rm "$a"
 done
