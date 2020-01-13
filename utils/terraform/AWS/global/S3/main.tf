@@ -1,11 +1,9 @@
 terraform {
   backend "s3" {
-    # Replace with real bucket name
     bucket = "devops-rampup-rlargot-tfstate"
     key = "global/s3/terraform.tfstate"
     region = "us-east-1"
 
-    # Replace with dynamodb
     dynamodb_table = "devops-rampup-rlargot-tflocks"
     encrypt = true
   }
